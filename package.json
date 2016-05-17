@@ -1,0 +1,23 @@
+{
+  "name": "swipe",
+  "version": "1.0.0",
+  "description": "The new way to use every last meal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "dining",
+    "swipes",
+    "food"
+  ],
+  "author": "Derick Yang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

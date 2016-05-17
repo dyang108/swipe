@@ -1,0 +1,104 @@
+// styles.less
+// needs to be processed into css before deploy
+// initialize variables
+@base-color: #93EE8B;
+@dark-base-color: @base-color - #333;
+@darker-base-color: @dark-base-color - #222;
+@background: #fff;
+@secondary: #8b93ee;
+@menu-font-size: 24px;
+@base-font-family: Raleway;
+@black: #000;
+@break1: 768px;
+@break2: 992px;
+@break3: 1200px;
+body,
+html {
+    font-family: @base-font-family;
+    background-color: @secondary;
+}
+
+hr {
+    border-color: @black;
+}
+
+.menu {
+    background-color: @base-color;
+    text-align: right;
+}
+
+.menu-item {
+    font-weight: bold;
+    font-size: @menu-font-size;
+    cursor: pointer;
+    cursor: hand;
+    border: 0;
+    background-color: @base-color;
+    &:hover {
+        background-color: @dark-base-color;
+    }
+}
+
+.sel {
+    background-color: @dark-base-color;
+}
+
+.list-group-item {
+    &:first-child {
+        border-radius: 0;
+    }
+    &:last-child {
+        border-radius: 0;
+    }
+}
+
+.logo-with-text {
+    max-width: 100%;
+}
+
+.content {
+    background-color: @background;
+}
+
+// @media (max-width: @break1) {
+//     .menu {
+//         width: 100%;
+//     }
+// }
+@media (min-width: @break1) {
+    .bs-sidebar.affix {
+        width: 218px;
+        top: 0;
+    }
+}
+
+@media (min-width: @break2) {
+    .bs-sidebar.affix {
+        width: 233px;
+        position: fixed;
+        top: 0;
+    }
+}
+
+@media (min-width: @break3) {
+    .bs-sidebar.affix {
+        width: 283px;
+    }
+}
+
+@font-face {
+    font-family: @base-font-family;
+    src: url(/fonts/Raleway-Regular.ttf);
+}
+
+@font-face {
+    font-family: @base-font-family;
+    src: url(/fonts/Raleway-SemiBold.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: @base-font-family;
+    src: url(/fonts/Raleway-ExtraLightItalic.ttf);
+    font-style: italic;
+}

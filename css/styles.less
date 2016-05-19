@@ -12,10 +12,18 @@
 @break1: 768px;
 @break2: 992px;
 @break3: 1200px;
+@sidebar1: 218px;
+@sidebar2: 233px;
+@sidebar3: 283px;
+@img-size: 70px;
 body,
 html {
     font-family: @base-font-family;
     background-color: @secondary;
+    background-image: url(/test/dewick.jpg);
+    background-size: cover;
+    background-repeat: none;
+    height: 100%;
 }
 
 hr {
@@ -24,7 +32,9 @@ hr {
 
 .menu {
     background-color: @base-color;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: right;
+    height: 100%;
 }
 
 .menu-item {
@@ -60,29 +70,57 @@ hr {
     background-color: @background;
 }
 
-// @media (max-width: @break1) {
-//     .menu {
-//         width: 100%;
-//     }
-// }
+.user-info {
+    bottom: 0;
+    position: absolute;
+    text-align: left;
+    max-height: @img-size + 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    img {
+        margin-right: 10px;
+    }
+    .username {
+        max-width: 100px;
+        font-weight: bold;
+    }
+}
+
+.propic {
+    height: @img-size;
+}
+
+.login-btn {
+    top: 25px;
+}
+
 @media (min-width: @break1) {
     .bs-sidebar.affix {
-        width: 218px;
+        width: @sidebar1;
         top: 0;
+        .user-info {
+            width: @sidebar1 - 30px;
+        }
     }
 }
 
 @media (min-width: @break2) {
     .bs-sidebar.affix {
-        width: 233px;
+        width: @sidebar2;
         position: fixed;
         top: 0;
+        .user-info {
+            width: @sidebar2 - 30px;
+        }
     }
 }
 
 @media (min-width: @break3) {
     .bs-sidebar.affix {
-        width: 283px;
+        width: @sidebar3;
+        .user-info {
+            width: @sidebar3 - 30px;
+        }
     }
 }
 

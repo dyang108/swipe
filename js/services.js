@@ -14,9 +14,60 @@ angular.module('choiceModule', [])
 
 //authentication stuff
 angular.module('authentication', [])
-    .service('fbauthenticate', function () {
-        
+    .factory('facebookService', function ($q) {
+        return {
+            // getMyLastName: function () {
+            //     var deferred = $q.defer();
+            //     FB.api('/me', {
+            //         fields: 'last_name'
+            //     }, function (response) {
+            //         if (!response || response.error) {
+            //             deferred.reject('Error occured');
+            //         } else {
+            //             deferred.resolve(response);
+            //         }
+            //     });
+            //     return deferred.promise;
+            // },
+            getProPic: function () {
+                var deferred = $q.defer();
+                FB.api('/me/picture', { type: 'normal' }, function (response) {
+                    if (!response || response.error) {
+                        deferred.reject('Error occured');
+                    } else {
+                        deferred.resolve(response);
+                    }
+                });
+                return deferred.promise;
+            },
+            getFullName: function () {
+                var deferred = $q.defer();
+                FB.api('/me', {
+                    fields: 'name'
+                }, function (response) {
+                    if (!response || response.error) {
+                        deferred.reject('Error occured');
+                    } else {
+                        deferred.resolve(response);
+                    }
+                });
+                return deferred.promise;
+            }
+        };
     });
+
+// angular.module('dbCommunicator', [])
+//     .factory('dbService', function ($http) {
+//         return {
+//             postMeal: function (meal) {
+//                 $http.
+//             }
+//         };
+//     });
+
+
+
+
 // .service('Session', function () {
 //     this.create = function (sessionId, userId, userRole) {
 //         this.id = sessionId;

@@ -25,23 +25,50 @@
             </span>
             <hr>
             <div ng-switch-when="eat" ng-controller="EatViewController">
-                <p>show meals starting at:
-                    <input type="time" name="time" ng-model="start_time" ng-change="has_changed = true">
-                </p>
+                <div class="input-group col-sm-4">
+                    <span class="input-group-addon">show meals starting at</span>
+                    <input class="form-control" type="time" name="time" ng-model="start_time" ng-change="has_changed = true">
+                </div>
                 <br>
                 <h3>upcoming from {{start_time | date: 'h:mm a'}}</h3>
                 <hr>
             </div>
             <div ng-switch-when="post" ng-controller="PostViewController">
-                <img class="thumbnail propic" src="/img/favicon.png" alt="profile pic">
+                <!-- <img class="thumbnail propic" src="/img/favicon.png" alt="profile pic"> -->
+                <form novalidate class="meal-post">
+                    <br>
+                    <div class="input-group input-group-lg col-sm-3 center">
+                        <span class="input-group-addon">Time</span>
+                        <input class="form-control" type="time" ng-model="meal.time" placeholder="{{curr_time}}">
+                    </div>
+                    <br>
+                    <div class="input-group input-group-lg col-sm-6 col-md-4 center">
+                        <span class="input-group-addon">Swipes to spare:</span>
+                        <input class="form-control" type="number" ng-model="meal.numswipes">
+                    </div>
+                    <br>
+                    <h3>Dining hall:</h3>
+                    <div class="radio">
+                        <label>
+                            <input name="hall" type="radio" ng-model="meal.hall" value="Carm">Carm</label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="hall" type="radio" ng-model="meal.hall" value="Dewick">Dewick</label>
+                    </div>
+                    <br>
+                    <input class="btn btn-success" type="submit" ng-click="postMeal(meal)" value="post meal" />
+                    <br>
+                    <br>
+                </form>
             </div>
             <div ng-switch-when="chat" ng-controller="ChatViewController">
             </div>
             <div ng-switch-when="profile" ng-controller="ProfileViewController">
             </div>
-<!--             <div ng-switch-when="login" ng-controller="LoginController">
+            <!--             <div ng-switch-when="login" ng-controller="LoginController">
                 <h2>sign in to swipe.</h2>
-                                <form name="loginForm" ng-submit="login(credentials)" novalidate>
+                <form name="loginForm" ng-submit="login(credentials)" novalidate>
                     <br>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon">Username</span>
@@ -54,7 +81,7 @@
                     </div>
                     <br>
                     <button class="btn btn-success" type="submit">Log in</button>
-                <!-- </form> -->
+                </form>
             </div> -->
         </div>
     </div>

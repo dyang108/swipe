@@ -5,6 +5,7 @@
     <title>Swipe.</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
+    <!-- I don't like importing source from third parties... even google. This is here for testing purposes. TODO: Remove this and use the local one -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
     <!-- <script type="text/javascript" src="/js/angular.min.js"></script> -->
     <script type="text/javascript" src="/js/services.js"></script>
@@ -89,7 +90,7 @@
                     <br>
                     <input class="btn btn-success" type="submit" ng-click="postMeal(newmeal)" value="post meal" />
                     <br>
-                    <h3><label class="label label-primary" ng-show="post_success">Submitted!</label></h3>
+                    <h3><label class="label label-primary" ng-show="show_msg">{{msg}}</label></h3>
                     <br>
                 </form>
             </div>

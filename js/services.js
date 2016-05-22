@@ -3,7 +3,7 @@ angular.module('choiceModule', [])
         var choices = [
             { name: 'eat', icon: 'fa-cutlery' },
             { name: 'post', icon: 'fa-bullhorn' },
-            { name: 'chat', icon: 'fa-comment' },
+            // { name: 'chat', icon: 'fa-comment' },
             { name: 'profile', icon: 'fa-user' }
         ];
 
@@ -43,52 +43,60 @@ angular.module('authentication', [])
         };
     });
 
-// angular.module('dbCommunicator', [])
-//     .factory('dbService', function ($http) {
-//         return {
-//             postMeal: function (meal) {
-//                 $http.
-//             }
-//         };
-//     });
+angular.module('mealAPI', [])
+    .factory('postService', function ($rootScope, $http, $timeout, $q) {
+        var hallLocs = {
+            Dewick: {
+                lat: 42.405412,
+                lng: -71.121312
+            },
+            Carm: {
+                lat: 42.409395,
+                lng: -71.122735
+            }
+        };
+        return {
+            getTravelTime: function (hall) {
+                var deferred = $q.defer();
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (pos) {
+                        var hallLat = hallLocs[hall].lat;
+                        var hallLng = hallLocs[hall].lng;
+                        var myLat = pos.coords.latitude;
+                        var myLong = pos.coords.longitude;
 
+                        // latitude difference
+                        var dLat = (hallLat - myLat) * Math.PI / 180;
 
+                        // longitude difference
+                        var dLon = (hallLng - myLong) * Math.PI / 180;
 
-
-// .service('Session', function () {
-//     this.create = function (sessionId, userId, userRole) {
-//         this.id = sessionId;
-//         this.userId = userId;
-//         this.userRole = userRole;
-//     };
-//     this.destroy = function () {
-//         this.id = null;
-//         this.userId = null;
-//         this.userRole = null;
-//     };
-// })
-// .factory('AuthService', function ($http, Session) {
-//     var authService = {};
-//     authService.login = function (credentials) {
-//         return $http
-//             .post('/login', credentials)
-//             .then(function (res) {
-//                 Session.create(res.data.id, res.data.user.id,
-//                     res.data.user.role);
-//                 return res.data.user;
-//             });
-//     };
-//     authService.isAuthenticated = function () {
-//         return !!Session.userId;
-//     };
-
-//     authService.isAuthorized = function (authorizedRoles) {
-//         if (!angular.isArray(authorizedRoles)) {
-//             authorizedRoles = [authorizedRoles];
-//         }
-//         return (authService.isAuthenticated() &&
-//             authorizedRoles.indexOf(Session.userRole) !== -1);
-//     };
-
-//     return authService;
-// });
+                        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                            Math.cos(myLat * Math.PI / 180) * Math.cos(hallLat * Math.PI / 180) *
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        var mDistance = 6371000 * c;
+                        // time to walk in milliseconds
+                        ret_val = (mDistance / 0.0014);
+                        deferred.resolve(ret_val);
+                    });
+                    return deferred.promise;
+                } else {
+                    return 300000; // default time in milliseconds (5 mins)
+                }
+            },
+            postMeal: function (meal) {
+                return $http.post('/postmeal', meal);
+            },
+            getMeals: function (dateString, endTime) {
+                return $http({
+                    url: '/getmeals',
+                    method: 'GET',
+                    params: {
+                        start_time: dateString,
+                        end_time: endTime 
+                    }
+                });
+            }
+        };
+    });

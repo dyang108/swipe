@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet/less" type="text/css" href="/css/styles.less">
     <script src="/js/less.js" type="text/javascript"></script>
-    <script src="/js/fblogin.js" type="text/javascript"></script>
 </head>
 
 <body ng-app="mainModule">
@@ -25,40 +24,72 @@
             </span>
             <hr>
             <div ng-switch-when="eat" ng-controller="EatViewController">
-                <div class="input-group col-sm-4">
-                    <span class="input-group-addon">show meals starting at</span>
-                    <input class="form-control" type="time" name="time" ng-model="start_time" ng-change="has_changed = true">
-                </div>
+                <form class="form-group form-inline">
+                    <div class="input-group input-group-lg col-sm-4">
+                        <span class="input-group-addon">show meals starting at</span>
+                        <!-- The following line makes everything happen every second... probably don't want this -->
+                        <input class="form-control" type="time" name="time" ng-model="start_time" ng-change="timeChange()">
+                    </div><span>&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="hall.Carm"> Carm
+                        </label>
+                        <br>
+                        <label>
+                            <input type="checkbox" ng-model="hall.Dewick"> Dewick
+                        </label>
+                    </div>
+                </form>
                 <br>
                 <h3>upcoming from {{start_time | date: 'h:mm a'}}</h3>
-                <hr>
+                <div ng-show="!isMeals">
+                    <hr>
+                    <h4>No meals found :-(</h4></div>
+                <div ng-init="getMeals()" ng-show="isMeals">
+                    <table class="table meal-table">
+                        <tr ng-repeat="meal in mealList" ng-show="hall[meal.hall]">
+                            <td>
+                                <div class="img-with-text"><img class="img-rounded propic" ng-src="{{meal.img}}">
+                                    <h4 class=""><strong>{{meal.user}}</strong></h4></div>
+                            </td>
+                            <td>
+                                <h3>{{meal.numswipes}}</h3>
+                                <h4>swipe<span ng-show="meal.numswipes !== 1">s</span> at {{meal.hall}}</h4></td>
+                            <td>
+                                <h3 class="pull-right">{{meal.time | date: 'h:mm a'}}</h3>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
             </div>
             <div ng-switch-when="post" ng-controller="PostViewController">
-                <!-- <img class="thumbnail propic" src="/img/favicon.png" alt="profile pic"> -->
                 <form novalidate class="meal-post">
+                    <!-- <img class="thumbnail propic center" src="/img/favicon.png" ng-src="{{propic}}" alt="profile pic"> -->
                     <br>
                     <div class="input-group input-group-lg col-sm-3 center">
                         <span class="input-group-addon">Time</span>
-                        <input class="form-control" type="time" ng-model="meal.time" placeholder="{{curr_time}}">
+                        <input class="form-control" type="time" ng-model="newmeal.time" placeholder="{{curr_time}}">
                     </div>
                     <br>
                     <div class="input-group input-group-lg col-sm-6 col-md-4 center">
                         <span class="input-group-addon">Swipes to spare:</span>
-                        <input class="form-control" type="number" ng-model="meal.numswipes">
+                        <input class="form-control" type="number" ng-model="newmeal.numswipes">
                     </div>
                     <br>
                     <h3>Dining hall:</h3>
                     <div class="radio">
                         <label>
-                            <input name="hall" type="radio" ng-model="meal.hall" value="Carm">Carm</label>
+                            <input name="hall" type="radio" ng-model="newmeal.hall" value="Carm">Carm</label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input name="hall" type="radio" ng-model="meal.hall" value="Dewick">Dewick</label>
+                            <input name="hall" type="radio" ng-model="newmeal.hall" value="Dewick">Dewick</label>
                     </div>
                     <br>
-                    <input class="btn btn-success" type="submit" ng-click="postMeal(meal)" value="post meal" />
+                    <input class="btn btn-success" type="submit" ng-click="postMeal(newmeal)" value="post meal" />
                     <br>
+                    <h3><label class="label label-primary" ng-show="post_success">Submitted!</label></h3>
                     <br>
                 </form>
             </div>
@@ -66,23 +97,6 @@
             </div>
             <div ng-switch-when="profile" ng-controller="ProfileViewController">
             </div>
-            <!--             <div ng-switch-when="login" ng-controller="LoginController">
-                <h2>sign in to swipe.</h2>
-                <form name="loginForm" ng-submit="login(credentials)" novalidate>
-                    <br>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">Username</span>
-                        <input class="form-control" placeholder="Username" type="text" id="username" ng-model="credentials.username">
-                    </div>
-                    <br>
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">Password</span>
-                        <input class="form-control" placeholder="Password" type="password" id="password" ng-model="credentials.password">
-                    </div>
-                    <br>
-                    <button class="btn btn-success" type="submit">Log in</button>
-                </form>
-            </div> -->
         </div>
     </div>
 </body>

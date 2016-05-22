@@ -12,9 +12,9 @@ angular.module('mainModule', ['authentication', 'choiceModule'])
         $scope.curr_time = new Date(Date.now());
         var tick = function () {
             $scope.curr_time = new Date(Date.now());
-            $timeout(tick, 1000);
+            $timeout(tick, 5000);
         };
-        $timeout(tick, 1000);
+        $timeout(tick, 5000);
         $scope.propic = '/img/favicon.png';
         $window.fbAsyncInit = function () {
             FB.init({
@@ -56,29 +56,67 @@ angular.module('mainModule', ['authentication', 'choiceModule'])
             };
         }
     ])
-    .controller('EatViewController', ['$scope', '$timeout', function ($scope, $timeout) {
-        $scope.start_time = new Date(Math.floor((new Date(Date.now())).getTime() / 60000) * 60000);
+    .controller('EatViewController', ['$scope', '$timeout', '$http', function ($scope, $timeout, $http) {
+        $scope.hall = {
+            Carm: true,
+            Dewick: true
+        };
+        $scope.start_time = new Date(Math.floor($scope.curr_time / 60000) * 60000);
+        // new Date(Math.floor((new Date(Date.now())).getTime() / 60000) * 60000);
         $scope.has_changed = false;
         var tick = function () {
             if (!$scope.has_changed) {
-                $scope.start_time = new Date(Math.floor((new Date(Date.now())).getTime() / 60000) * 60000);
-                $timeout(tick, 1000);
+                $scope.start_time = new Date(Math.floor($scope.curr_time / 60000) * 60000);
+                $timeout(tick, 5000);
             }
         };
-        $timeout(tick, 1000);
+        $scope.timeChange = function () {
+            $scope.has_changed = true;
+            $scope.isMeals = true;
+            $scope.getMeals();
+        };
+        // $timeout(tick, 5000);
+        $scope.isMeals = true;
+        $scope.getMeals = function () {
+            var dateString = $scope.start_time.toISOString();
+            $http({
+                url: '/getmeals',
+                method: 'GET',
+                params: { start_time: dateString }
+            }).then(function (response) {
+                if (response.data.length === 0) {
+                    $scope.isMeals = false;
+                }
+                $scope.mealList = response.data;
+            }, function (response) {
+                $scope.isMeals = false;
+            });
+        };
+        $scope.getValidHall = function (hallname) {
+            if ($scope.isMeals) {
+                console.log(hallname);
+                console.log($scope.hall);
+                return $scope.hall[hallname];
+            }
+        };
     }])
-    .controller('PostViewController', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
-        $scope.meal = {
+    .controller('PostViewController', ['$scope', '$rootScope', '$http', '$timeout', function ($scope, $rootScope, $http, $timeout) {
+        $scope.post_success = false;
+        $scope.newmeal = {
             time: new Date(Math.floor($scope.curr_time / 60000) * 60000),
             numswipes: 1,
             hall: 'Carm'
         };
-        $scope.postMeal = function(meal) {
+        $scope.postMeal = function (meal) {
             if (!$rootScope.logged_in) return;
             meal.user = $scope.fullName;
             meal.img = $scope.propic;
-            $http.post('/postmeal', meal);
-            console.log(meal);
+            $http.post('/postmeal', meal).then(function (response) {
+                $scope.post_success = true;
+                $timeout(function () {
+                    $scope.post_success = false;
+                }, 5000);
+            }, function () {});
         };
     }])
     .directive('sidebar', function () {
@@ -96,11 +134,8 @@ angular.module('mainModule', ['authentication', 'choiceModule'])
                     </div>
                     <div class="user-info">
                         <img class="thumbnail propic pull-left" ng-src="{{propic}}" alt="my propic">
-                        <!-- if not logged in -->
-                            <!-- <button class="btn btn-success login-btn" ng-click="setSelection('login')">Log in / Sign up</button>-->
-                            <fb:login-button ng-show="!logged_in" class="login-btn" scope="public_profile,email">
+                            <fb:login-button ng-show="!logged_in" class="login-btn" scope="public_profile,email" onlogin="window.location='/'">
                             </fb:login-button>
-                        <!-- else -->
                             <h4 class="username" ng-show="logged_in">{{fullName}}</h4>
                             <h5 ng-show="logged_in">112 swipes left</h5>
                     </div>
@@ -109,4 +144,3 @@ angular.module('mainModule', ['authentication', 'choiceModule'])
             replace: true
         };
     });
-

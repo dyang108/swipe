@@ -20,7 +20,7 @@ body,
 html {
     font-family: @base-font-family;
     background-color: @secondary;
-    background-image: url(/test/dewick.jpg);
+    background-image: url(/img/dewick.jpg);
     background-size: cover;
     background-repeat: none;
     height: 100%;
@@ -28,6 +28,14 @@ html {
 
 hr {
     border-color: @black;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+img {
+    object-fit: cover;
 }
 
 .menu {
@@ -68,6 +76,8 @@ hr {
 
 .content {
     background-color: @background;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .user-info {
@@ -88,6 +98,7 @@ hr {
 
 .propic {
     height: @img-size;
+    width: @img-size;
 }
 
 .login-btn {
@@ -100,6 +111,22 @@ hr {
 
 .meal-post {
     text-align: center;
+}
+
+.meal-table {
+    width: 100%;
+}
+
+.img-with-text {
+    img {
+        float: left;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        position: relative;
+        left: 10px;
+        top: 24px;
+        margin: 0;
+    }
 }
 
 @media (min-width: @break1) {

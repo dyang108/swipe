@@ -14,7 +14,7 @@ db.once('open', function () {
     });
 });
 
-
+db.collection('meals').createIndex({ time: 1 });
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,8 +28,21 @@ app.get('/upcomingmeals', function (req, res) {
 });
 
 app.post('/postmeal', function (req, res) {
+    // NEED SECURITY HERE!!!
     db.collection('meals').insert(req.body);
     res.sendStatus(200);
+});
+
+app.get('/getmeals', function (req, res) {
+    // SECURITY? (might not be necessary for find)
+    db.collection('meals').find({
+        time: {
+            $gt: req.query.start_time
+        }
+    }).toArray().then(function (ret_val) {
+        res.json(ret_val);
+        res.end();
+    });
 });
 
 // app.get('/eat', function (req, res) {

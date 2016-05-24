@@ -22,7 +22,7 @@ html {
     background-color: @secondary;
     background-image: url(/img/dewick.jpg);
     background-size: cover;
-    background-repeat: none;
+    background-repeat: no-repeat;
     height: 100%;
 }
 
@@ -121,7 +121,7 @@ img {
     img {
         float: left;
     }
-    h1, h2, h3, h4, h5, h6 {
+    .inner-text {
         position: relative;
         left: 10px;
         top: 24px;
@@ -140,7 +140,7 @@ img {
 }
 
 @media (min-width: @break1) {
-    .bs-sidebar.affix {
+    .menu {
         width: @sidebar1;
         top: 0;
         .user-info {
@@ -150,7 +150,7 @@ img {
 }
 
 @media (min-width: @break2) {
-    .bs-sidebar.affix {
+    .menu {
         width: @sidebar2;
         position: fixed;
         top: 0;
@@ -161,7 +161,7 @@ img {
 }
 
 @media (min-width: @break3) {
-    .bs-sidebar.affix {
+    .menu {
         width: @sidebar3;
         .user-info {
             width: @sidebar3 - 30px;
@@ -171,17 +171,20 @@ img {
 
 @font-face {
     font-family: @base-font-family;
-    src: url(/fonts/Raleway-Regular.ttf);
+    src: url('/fonts/raleway-regular.eot');
+    src: url('/fonts/raleway-regular.eot?#iefix') format('embedded-opentype'), url('/fonts/Raleway-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: @base-font-family;
-    src: url(/fonts/Raleway-SemiBold.ttf);
     font-weight: bold;
+    src: url('/fonts/raleway-semibold.eot');
+    src: url('/fonts/raleway-semibold.eot?#iefix') format('embedded-opentype'), url('/fonts/Raleway-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
     font-family: @base-font-family;
-    src: url(/fonts/Raleway-ExtraLightItalic.ttf);
     font-style: italic;
+    src: url('/fonts/raleway-extralight.eot');
+    src: url('/fonts/raleway-extralight.eot?#iefix') format('embedded-opentype'), url('/fonts/Raleway-ExtraLightItalic.ttf') format('truetype');
 }

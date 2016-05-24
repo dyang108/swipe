@@ -1,0 +1,5 @@
+{
+    "esversion": 6,
+    "W081": false,
+    "predef": ["angular", "FB", "document", "navigator", "__dirname"]
+}

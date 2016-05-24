@@ -4,17 +4,17 @@
 <head>
     <title>Swipe.</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
-    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/js/min/jquery-1.12.3.min.js"></script>
     <!-- I don't like importing source from third parties... even google. This is here for testing purposes. TODO: Remove this and use the local one -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
-    <!-- <script type="text/javascript" src="/js/angular.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/min/angular.min.js"></script> -->
     <script type="text/javascript" src="/js/services.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/min/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet/less" type="text/css" href="/css/styles.less">
-    <script src="/js/less.js" type="text/javascript"></script>
+    <script src="/js/min/less.js" type="text/javascript"></script>
 </head>
 
 <body ng-app="mainModule">
@@ -50,8 +50,8 @@
                     <table class="table meal-table">
                         <tr ng-repeat="meal in mealList" ng-show="hall[meal.hall]">
                             <td>
-                                <div class="img-with-text"><img class="img-rounded propic" ng-src="{{meal.img}}">
-                                    <h4 class=""><strong>{{meal.user}}</strong></h4></div>
+                                <div class="img-with-text"><img class="img-rounded propic" alt="table propic" src="img/favicon.png" ng-src="{{meal.img}}">
+                                    <h4 class="inner-text"><strong>{{meal.user}}</strong></h4></div>
                             </td>
                             <td>
                                 <h3>{{meal.numswipes}}</h3>

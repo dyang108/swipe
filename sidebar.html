@@ -1,0 +1,26 @@
+<div id="sidebar" class="bs-sidebar affix menu col-sm-4 col-md-3">
+    <a href="/"><img class="logo-with-text" src="img/swipetext3.png" alt="logo"></a>
+    <hr>
+    <div ng-controller="NavController">
+        <ul class="nav nav-pills nav-stacked list-group">
+            <li ng-class="[{sel: item.name == selection }, 'list-group-item', 'menu-item']" ng-repeat="item in choices" ng-click="setSelection(item.name)">
+                <span class="pull-left fa {{item.icon}}" aria-hidden="true"></span> {{item.name}}
+            </li>
+            <h3 class="pull-left">Leaving now?</h3>
+            <div class="btn-group btn-group-justified quick-post" role="group">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary btn-sm" ng-click="quickMeal('Dewick')">going to Dewick</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary btn-sm" ng-click="quickMeal('Carm')">going to Carm</button>
+                </div>
+            </div>
+        </ul>
+    </div>
+    <div class="user-info ">
+        <img class="thumbnail propic pull-left" src="img/favicon.png" ng-src="{{propic}} " alt="my propic ">
+        <fb:login-button ng-show="!logged_in " class="login-btn " scope="public_profile,email " onlogin="window.location='/' ">
+        </fb:login-button>
+        <h4 class="username " ng-show="logged_in ">{{fullName}}</h4>
+    </div>
+</div>

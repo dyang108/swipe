@@ -4,7 +4,7 @@
   "description": "The new way to use every last meal.",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "./test.sh"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,13 @@
   "dependencies": {
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
+    "grunt": "^1.0.1",
+    "grunt-lesslint": "^3.2.0",
+    "jslint": "^0.10.0",
     "mongoose": "^4.4.17",
     "mongoose-sanitizer": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt-htmllint": "^0.2.7"
   }
 }

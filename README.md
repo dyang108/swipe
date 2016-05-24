@@ -48,3 +48,6 @@ Using a full Javascript stack (Angular, Node, Mongo), this site is designed to s
 * mongoose (schemas for DB input)
 * mongoose-sanitizer (sanitizes db input to avoid XSS, but it is NOT PERFECT)
 * express (routing)
+* grunt
+* grunt-lesslint (ensure LESS is stylish)
+* 

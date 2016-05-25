@@ -1,4 +1,6 @@
 #!/bin/bash
+npm install -g grunt
+npm install -g jslint
 # ensure less is stylish
 grunt lesslint
 # to get really fancy, I should use Protractor http://www.protractortest.org/#/

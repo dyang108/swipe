@@ -3,4 +3,5 @@ machine:
       version: 4.2.4
 dependencies:
   override:
+    - npm install
     - npm install -g

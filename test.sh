@@ -1,4 +1,5 @@
 #!/bin/bash
+npm install -g grunt --save-dev
 npm install -g grunt-cli
 npm install -g jslint
 # ensure less is stylish
